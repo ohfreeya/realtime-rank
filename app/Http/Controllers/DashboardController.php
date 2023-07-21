@@ -19,8 +19,8 @@ class DashboardController extends Controller
             ["team" => "C", "score" => rand(0, 100)],
         ];
         uasort($data, function ($a, $b) {
-            if ($a == $b) return 0;
-            return ($a < $b) ? -1 : 1;
+            if ($a['score'] == $b['score']) return 0;
+            return ($a['score'] < $b['score']) ? -1 : 1;
         });
 
         return response()->json($data);

@@ -39,11 +39,19 @@
             },
             dataType:'json',
             success:function(res) {
-                res.forEach( e => {
+                console.log(res)
+                res.forEach( (e,i) => {
+                    console.log(i,e)
                     $('.'+e.team+'-t').text( e.team );
                     $('.'+e.team+'-s').text( e.score );
+                    var elementToMove = $('.'+e.team+'-d');
+                    var targetIndex = i;
+                    // Detach the element from its current position
+                    elementToMove.detach();
+                    // Use insertBefore() to insert the element at the target index (before the target element)
+                    $('.rank-data tr:eq(' + targetIndex + ')').before(elementToMove);
                 })
-                // $.ajax(getting);
+                $.ajax(getting);
             },
             error:function(res){
                 $.ajax($getting);
@@ -58,7 +66,7 @@
             success: function(res){
                 res.forEach(element => {
                     $(".rank-data").append(`
-                        <tr>
+                        <tr class="`+element+`-b">
                             <td class="`+ element +`-t"></td>
                             <td class="`+ element +`-s"></td>
                         </tr>
