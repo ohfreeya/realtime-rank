@@ -8,7 +8,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard');
+        $currentPage = 'dashboard';
+        return view('dashboard', compact('currentPage'));
     }
 
     public  function getRankData()

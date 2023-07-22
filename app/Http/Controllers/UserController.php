@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     // register
-    public function storeRegister(Request $request){
+    public function storeRegister(Request $request)
+    {
         $input = $request->all();
         $validator_data = [
             "name" => "required",
@@ -20,14 +21,14 @@ class UserController extends Controller
             "confirm" => "required"
         ];
         $validator = validator::make($input, $validator_data);
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return back(); // field required
         }
-        if ($input['confirm'] !== $input['password']){
+        if ($input['confirm'] !== $input['password']) {
             return back(); // confirm and password is different
         }
         $checkEmail = User::where('email', $input['email'])->first();
-        if ($checkEmail){
+        if ($checkEmail) {
             return back(); // email already registered
         }
         unset($input['confirm']);
@@ -37,28 +38,36 @@ class UserController extends Controller
     }
 
     // after login
-    public function loginAuth(Request $request){
+    public function loginAuth(Request $request)
+    {
         $input = $request->all();
         $validator_data = [
             "email" => "required",
             "password" => "required",
         ];
         $validator = validator::make($input, $validator_data);
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return back(); // field required
         }
         $user = User::where('email', $input['email'])->first();
-        if(Auth::attempt($input)){
-            $token = $user->createToken('token-'.$user->id)->plainTextToken;
+        if (Auth::attempt($input)) {
+            $token = $user->createToken('token-' . $user->id)->plainTextToken;
             session('token', $token);
             return response()->json([
                 "message" => "Login successful",
                 "token" => $token
-            ],200);
+            ], 200);
         }
 
         return response()->json([
             "message" => "Login failed",
         ], 200);
+    }
+
+    // get user profile page
+    public function getProfile()
+    {
+        $currentPage = 'profile';
+        return view('profile', compact('currentPage'));
     }
 }

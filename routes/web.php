@@ -14,21 +14,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::redirect('/', '/login', 302);
-Route::get('/register', function(){
+Route::get('/register', function () {
     return  view('register');
 });
-Route::get('/login', function(){
+Route::get('/login', function () {
     return view('login');
 })->name('login');
-Route::controller(UserController::class)->group(function(){
+Route::controller(UserController::class)->group(function () {
     Route::post('/login', 'loginAuth')->name('login.auth');
     Route::post('/register', 'storeRegister')->name('register.store');
 });
 Route::group([
     "middleware" => ["auth"]
-], function(){
-    Route::controller(DashboardController::class)->group(function(){
-        Route::get('/dashboard','index')->name('dashboard');
+], function () {
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard');
+    });
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/profile', 'getProfile');
     });
 });

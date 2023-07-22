@@ -9,13 +9,13 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
+            <a class="nav-link {{ $currentPage == 'dashboard' ? "active" : '' }}" href="/dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
+            <a class="nav-link {{ $currentPage == 'profile' ? "active" : '' }}" href="/profile">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/manage">Manage</a>
+            <a class="nav-link {{ $currentPage == 'manage' ? "active" : '' }}" href="/manage">Manage</a>
           </li>
           <li class="nav-item float-end">
             <a class="nav-link" href="/manage">Logout</a>
