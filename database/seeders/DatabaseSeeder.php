@@ -3,7 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Team;
+use App\Models\User;
+use Faker\Guesser\Name;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $staff = Team::create([
+            "name" => "Staff Manager Team",
+            "score" => 0,
+        ]);
+        User::create([
+            "name" => "Admin",
+            "email" => "root@admin",
+            "password" => Hash::make("admin"),
+            "team_id" => $staff->id,
+            "permission" => User::PERMISSION_STAFF
+        ]);
     }
 }
