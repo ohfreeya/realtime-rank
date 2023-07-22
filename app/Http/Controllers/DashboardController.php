@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $currentPage = 'dashboard';
-        return view('dashboard', compact('currentPage'));
+        $isStaff = Auth::user()->isStaff;
+        return view('dashboard', compact('currentPage', 'isStaff'));
     }
 
     public  function getRankData()

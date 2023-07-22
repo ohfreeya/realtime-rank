@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ManageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,8 @@ Route::group([
     });
     Route::controller(UserController::class)->group(function () {
         Route::get('/profile', 'getProfile');
+    });
+    Route::controller(ManageController::class)->group(function () {
+        Route::get('/manage', 'index');
     });
 });

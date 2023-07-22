@@ -14,9 +14,11 @@
           <li class="nav-item">
             <a class="nav-link {{ $currentPage == 'profile' ? "active" : '' }}" href="/profile">Profile</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {{ $currentPage == 'manage' ? "active" : '' }}" href="/manage">Manage</a>
-          </li>
+          @if($isStaff)
+            <li class="nav-item">
+              <a class="nav-link {{ $currentPage == 'manage' ? "active" : '' }}" href="/manage">Manage</a>
+            </li>
+          @endif
           <li class="nav-item float-end">
             <a class="nav-link" href="/manage">Logout</a>
           </li>

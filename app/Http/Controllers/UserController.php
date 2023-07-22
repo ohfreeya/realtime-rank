@@ -68,6 +68,7 @@ class UserController extends Controller
     public function getProfile()
     {
         $currentPage = 'profile';
-        return view('profile', compact('currentPage'));
+        $isStaff = Auth::user()->isStaff;
+        return view('profile', compact('currentPage', 'isStaff'));
     }
 }
