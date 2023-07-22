@@ -3,15 +3,15 @@
 <div class="container mt-3 h-100">
     <h3>Dashboard Page</h3>
     <div class="table-show shadow p-3 mb-5 bg-body rounded">
-        <table class="table table-striped text-center">
+        <table class="table text-center">
             <thead>
-                <tr class="fw-bold">
+                <tr class="fw-bold w-100">
                     <td class="w-50">team</td>
                     <td class="w-50">score</td>
                 </tr>
             </thead>
             <tbody class="rank-data"> 
-                <tr class="rank-wait-data">
+                <tr class="rank-wait-data" style="opacity: 1; color:black">
                     <td colspan="2"> loading...</td>
                 </tr>
             </tbody>
@@ -31,7 +31,7 @@
                 "Accept": "application/json"
             },
         })
-                $('.rank-data').css("height", $('.rank-wait-data').height())
+        $('.rank-data').css("height", $('.rank-wait-data').height())
         getData();
     })
     function getData(){
@@ -53,7 +53,7 @@
                             top: targetIndex * elementToMove.height(),
                             "z-index": 9
                         },
-                        500
+                        1000
                     );
                     $('.'+e.team+'-s').text(e.score).animate({ opacity: 1 }, 100);
                     $('.'+e.team+'-t').text(e.team).animate({ opacity: 0.7 }, 100);
