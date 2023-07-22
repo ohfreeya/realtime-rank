@@ -1,0 +1,16 @@
+.rank-data {
+    transition-timing-function: ease-in;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition: top;
+    position: relative;
+    padding-bottom: 100px;
+}
+.rank-data tr {
+    position: absolute;
+}
+.rank-data tr td {
+    background: rgba(222, 221, 221, 0.581);
+    --bs-table-bg-type:none;
+    width: 100vw;
+    height: 41px;
+}

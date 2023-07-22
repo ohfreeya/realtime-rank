@@ -13,16 +13,17 @@ class DashboardController extends Controller
 
     public  function getRankData()
     {
+        set_time_limit(0);
         $data = [
             ["team" => "A", "score" => rand(0, 100)],
             ["team" => "B", "score" => rand(0, 100)],
             ["team" => "C", "score" => rand(0, 100)],
         ];
-        uasort($data, function ($a, $b) {
+        usort($data, function ($a, $b) {
             if ($a['score'] == $b['score']) return 0;
-            return ($a['score'] < $b['score']) ? -1 : 1;
+            return ($a['score'] > $b['score']) ? -1 : 1;
         });
-
+        sleep(rand(3, 5));
         return response()->json($data);
     }
     public function getRankTeamList()

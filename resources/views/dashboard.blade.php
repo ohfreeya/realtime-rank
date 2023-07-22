@@ -1,16 +1,19 @@
 @extends('layout.navbar')
 @section('body')
-<div class="container mt-3">
+<div class="container mt-3 h-100">
     <h3>Dashboard Page</h3>
-    <div class="table-show shadow p-3 mb-5 bg-body rounded ">
-        <table class="table table-striped">
+    <div class="table-show shadow p-3 mb-5 bg-body rounded">
+        <table class="table table-striped text-center">
             <thead>
                 <tr class="fw-bold">
-                    <td>team</td>
-                    <td>score</td>
+                    <td class="w-50">team</td>
+                    <td class="w-50">score</td>
                 </tr>
             </thead>
             <tbody class="rank-data"> 
+                <tr class="rank-wait-data">
+                    <td colspan="2"> loading...</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -28,6 +31,7 @@
                 "Accept": "application/json"
             },
         })
+                $('.rank-data').css("height", $('.rank-wait-data').height())
         getData();
     })
     function getData(){
@@ -39,17 +43,20 @@
             },
             dataType:'json',
             success:function(res) {
-                console.log(res)
+                $('.rank-data').css("height", $('.rank-wait-data').height()*res.length)
+                $('.rank-wait-data').remove();
                 res.forEach( (e,i) => {
-                    console.log(i,e)
-                    $('.'+e.team+'-t').text( e.team );
-                    $('.'+e.team+'-s').text( e.score );
-                    var elementToMove = $('.'+e.team+'-d');
+                    var elementToMove = $('.'+e.team+'-b');
                     var targetIndex = i;
-                    // Detach the element from its current position
-                    elementToMove.detach();
-                    // Use insertBefore() to insert the element at the target index (before the target element)
-                    $('.rank-data tr:eq(' + targetIndex + ')').before(elementToMove);
+                    elementToMove.animate(
+                        {
+                            top: targetIndex * elementToMove.height(),
+                            "z-index": 9
+                        },
+                        500
+                    );
+                    $('.'+e.team+'-s').text(e.score).animate({ opacity: 1 }, 100);
+                    $('.'+e.team+'-t').text(e.team).animate({ opacity: 0.7 }, 100);
                 })
                 $.ajax(getting);
             },
