@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->integer('team_id');
+            $table->integer('team_id')->nullable();
             $table->tinyInteger('permission')->comment('1 staff, 2 teamleader , 3 teammembers');
             $table->timestamps();
         });
