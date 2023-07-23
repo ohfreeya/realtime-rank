@@ -1,7 +1,7 @@
 @extends('layout.navbar')
 @section('body')
-<div class="container mt-3 h-100">
-    <h3>Dashboard Page</h3>
+<div class="container mt-3 h-100 pb-3">
+    <h3 class="text-center">Dashboard Page</h3>
     <div class="table-show shadow p-3 mb-5 bg-body rounded">
         <table class="table text-center">
             <thead>

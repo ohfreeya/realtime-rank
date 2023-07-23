@@ -23,19 +23,31 @@ class UserController extends Controller
         ];
         $validator = validator::make($input, $validator_data);
         if ($validator->fails()) {
-            return back(); // field required
+            return back()
+                ->with('result', 1)
+                ->with('message', "All Fields are required"); // field required
         }
         if ($input['confirm'] !== $input['password']) {
-            return back(); // confirm and password is different
+            return back()
+                ->with('result', 1)
+                ->with('message', "Confirm password is not equal password."); // confirm and password is different
         }
         $checkEmail = User::where('email', $input['email'])->first();
         if ($checkEmail) {
-            return back(); // email already registered
+            return back()
+                ->with('result', 1)
+                ->with('message', "Email is already exist."); // email already registered
         }
         unset($input['confirm']);
         $input['password'] = Hash::make($input['password']);
         User::create($input);
         return redirect('login', 302); // register successfully
+    }
+    // logout
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login');
     }
 
     // after login
@@ -48,7 +60,7 @@ class UserController extends Controller
         ];
         $validator = validator::make($input, $validator_data);
         if ($validator->fails()) {
-            return back()->with('result', 1)->with('message', "All Fields are required");; // field required
+            return back()->with('result', 1)->with('message', "All Fields are required"); // field required
         }
         $user = User::where('email', $input['email'])->first();
         if (Auth::attempt($input)) {

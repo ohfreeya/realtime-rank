@@ -1,18 +1,18 @@
 @extends('layout.navbar')
 
 @section('body')
-<div class="container mt-3 h-100">
-    <h3>Profile Page</h3>
+<div class="container mt-3 h-100 pb-3">
+    <h3 class="text-center">Profile Page</h3>
     <div class="pt-3">
         <div class="change-team">
-            <div class="row container px-5">
+            <div class="row container px-5 m-0">
                 <div class="col-12">
                     <div class="row shadow rounded p-3">
                         <div class="col-12 pb-3">
                             <h5 class="fw-bold fst-italic">Change NickName</h5>
                         </div>
                         <div class="col-12 p-4 pt-2">
-                            <form action="/profile/name" method="POST">
+                            <form action="/profile/name/modify" method="POST">
                                 @csrf
                                 <label for="email" class="form-label">Email</label>
                                 <input type="input" class="form-control" id="email" disabled value="{{$user->email}}">

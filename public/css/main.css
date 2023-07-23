@@ -17,6 +17,9 @@
 .register-form {
     width: 25vw;
 }
+.operator-icon {
+    width: 1rem;
+}
 
 @media screen and (max-width: 985px) {
     .register-form {

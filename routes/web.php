@@ -26,6 +26,7 @@ Route::get('/login', function () {
 Route::controller(UserController::class)->group(function () {
     Route::post('/login', 'loginAuth')->name('login.auth');
     Route::post('/register', 'storeRegister')->name('register.store');
+    Route::get('/logout', 'logout');
 });
 Route::group([
     "middleware" => ["auth"]
@@ -35,10 +36,12 @@ Route::group([
     });
     Route::controller(UserController::class)->group(function () {
         Route::get('/profile', 'getProfile')->name('profile.page');
-        Route::post('/profile/name', 'modifyNickname');
+        Route::post('/profile/name/modify', 'modifyNickname');
         Route::post('/team/modify', 'modifyTeamSelf');
+        Route::get('/user')->name('user.page');
     });
     Route::controller(ManageController::class)->group(function () {
-        Route::get('/manage', 'index');
+        Route::get('/teams', 'index')->name("teams.page");
+        Route::post('/team/create', 'createTeam');
     });
 });
