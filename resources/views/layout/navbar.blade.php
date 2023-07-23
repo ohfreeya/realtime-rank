@@ -16,6 +16,9 @@
           </li>
           @if($isStaff)
             <li class="nav-item">
+              <a class="nav-link {{ $currentPage == 'score' ? "active" : '' }}"  href="/score">Score</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link {{ $currentPage == 'teams' ? "active" : '' }}" href="/teams">Teams</a>
             </li>
             <li class="nav-item">

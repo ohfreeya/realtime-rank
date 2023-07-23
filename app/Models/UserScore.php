@@ -9,10 +9,9 @@ class UserScore extends Model
 {
     use HasFactory;
 
-    protected $fillable= [
+    protected $fillable = [
         'user_id',
         'team_id',
-        'personal_score',
-        'team_score'
-    ]
+        'score_record'
+    ];
 }

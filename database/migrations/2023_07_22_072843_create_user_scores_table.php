@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('team_id');
-            $table->integer('personal_score')->comment('get score of personal in this time');
-            $table->integer('team_score')->comment('current total score of team');
+            $table->integer('score_record')->comment('record this score');
             $table->timestamps();
         });
     }

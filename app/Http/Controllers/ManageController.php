@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\UserScore;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class ManageController extends Controller
@@ -57,5 +59,50 @@ class ManageController extends Controller
         return redirect(Route('teams.page'))
             ->with('result', 0)
             ->with('message', 'Delete successfully.');
+    }
+    // get score page
+    public function getScorePage()
+    {
+        $currentPage = 'score';
+        $isStaff = Auth::user()->isStaff;
+        $teamList = Team::whereNot('id', 1)->get();
+        return view('score', compact('currentPage', 'isStaff', 'teamList'));
+    }
+    // get selected team's current score
+    public function getSelectedTeamScore($team_id)
+    {
+        $team = Team::find($team_id);
+        return response()->json([
+            "score" => $team->score
+        ], 200);
+    }
+    // store score
+    public function storeScore(Request $request)
+    {
+        $input = $request->all();
+        $validator_data = [
+            "team" => "required",
+            "score" => "required",
+        ];
+        $validator = validator::make($input, $validator_data);
+        if ($validator->fails()) {
+            return back()
+                ->with('result', 1)
+                ->with('message', "All Fields are required"); // field required
+        }
+        $team = Team::find($input['team']);
+        $team->score = $team->score + $input['score'];
+        $team->save();
+
+        UserScore::create([
+            "user_id" => 1,
+            "team_id" => $team->id,
+            "score_record" => $input['score'],
+        ]);
+
+        Redis::set($team->name, $team->score);
+        return redirect(Route('score.page'))
+            ->with('result', 0)
+            ->with('message', 'Modify successfully');
     }
 }

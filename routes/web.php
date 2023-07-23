@@ -46,5 +46,8 @@ Route::group([
         Route::get('/teams', 'index')->name("teams.page");
         Route::post('/team/create', 'createTeam');
         Route::get('/team/delete/{id}', 'deleteTeam');
+        Route::get('/score', 'getScorePage')->name('score.page');
+        // Route::get('/score/{team_id}', 'getSelectedTeamScore');
+        Route::post('/score/store', 'storeScore');
     });
 });
