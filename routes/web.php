@@ -35,6 +35,7 @@ Route::group([
     });
     Route::controller(UserController::class)->group(function () {
         Route::get('/profile', 'getProfile')->name('profile.page');
+        Route::post('/profile/name', 'modifyNickname');
         Route::post('/team/modify', 'modifyTeamSelf');
     });
     Route::controller(ManageController::class)->group(function () {

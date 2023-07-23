@@ -48,7 +48,7 @@ class UserController extends Controller
         ];
         $validator = validator::make($input, $validator_data);
         if ($validator->fails()) {
-            return back(); // field required
+            return back()->with('result', 1)->with('message', "All Fields are required");; // field required
         }
         $user = User::where('email', $input['email'])->first();
         if (Auth::attempt($input)) {
@@ -71,14 +71,42 @@ class UserController extends Controller
         $currentPage = 'profile';
         $isStaff = Auth::user()->isStaff;
         $teamList = Team::whereNot('id', 1)->pluck('name', 'id')->toArray() ?? [];
-        return view('profile', compact('currentPage', 'isStaff', 'teamList'));
+        $user = Auth::user();
+        return view('profile', compact('currentPage', 'isStaff', 'teamList', 'user'));
+    }
+    // modify user nickname
+    public function modifyNickname(Request $request)
+    {
+        $input = $request->all();
+        $validator_data = [
+            "nickname" => "required"
+        ];
+        $validator = validator::make($input, $validator_data);
+        if ($validator->fails()) {
+            return back()->with('result', 1)->with('message', "All Fields are required"); // field required
+        }
+        $newName = $input['nickname'];
+        $user = User::find(Auth::id());
+        $user->name = $newName;
+        $user->save();
+        return redirect(Route('profile.page'))
+            ->with('message', 'Modify Successfully')
+            ->with('result', 0);
     }
 
     // modify self team
     public function modifyTeamSelf(Request $request)
     {
+        $input = $request->all();
+        $validator_data = [
+            "team" => "required"
+        ];
+        $validator = validator::make($input, $validator_data);
+        if ($validator->fails()) {
+            return back()->with('result', 1)->with('message', "Please choose the team of you want to join."); // field required
+        }
         $user = User::find(Auth::id());
-        $user->team_id = $request['team'];
+        $user->team_id = $input['team'];
         $user->save();
         return redirect(Route('profile.page'))
             ->with('message', 'Modify Successfully')
