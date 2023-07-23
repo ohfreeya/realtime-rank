@@ -40,9 +40,11 @@ Route::group([
         Route::post('/team/modify', 'modifyTeamSelf');
         Route::get('/user', 'getUserManage')->name('user.page');
         Route::post('/user/create', 'createUser')->name('user.create');
+        Route::get('/user/delete/{id}', 'deleteUser');
     });
     Route::controller(ManageController::class)->group(function () {
         Route::get('/teams', 'index')->name("teams.page");
         Route::post('/team/create', 'createTeam');
+        Route::get('/team/delete/{id}', 'deleteTeam');
     });
 });

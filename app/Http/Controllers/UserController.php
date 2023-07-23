@@ -176,4 +176,13 @@ class UserController extends Controller
             ->with('result', 0)
             ->with('message', "Created user successfully");
     }
+    // delete user 
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect(Route('user.page'))
+            ->with('result', 0)
+            ->with('message', "Deleted user successfully");
+    }
 }

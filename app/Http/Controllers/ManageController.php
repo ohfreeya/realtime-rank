@@ -47,4 +47,15 @@ class ManageController extends Controller
             ->with('result', 0)
             ->with('message', 'Create successfully.');
     }
+    // delete team
+    public function deleteTeam($id)
+    {
+        $team = Team::find($id);
+        if ($team) {
+            $team->delete();
+        }
+        return redirect(Route('teams.page'))
+            ->with('result', 0)
+            ->with('message', 'Delete successfully.');
+    }
 }
