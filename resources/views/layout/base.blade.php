@@ -24,12 +24,13 @@
 </html>
 
 <script>
-    @if(isset($message))
+    @if(session()->has('message'))
     Swal.fire({
-        title: {{ $result ? "Error" : "Success" }},
-        text: {{$message}},
-        icon: {{ $result ? "error" : "success" }}
+        title: "{{ session('result') ? "Error" : "Success" }}",
+        text: "{{ session('message') }}",
+        icon: "{{ session('result') ? "error" : "success" }}",
+        showConfirmButton: false,
+        timer: 1000
     })
-    console.log({{$message}})
     @endif
 </script>
