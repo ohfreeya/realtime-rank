@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,6 +70,18 @@ class UserController extends Controller
     {
         $currentPage = 'profile';
         $isStaff = Auth::user()->isStaff;
-        return view('profile', compact('currentPage', 'isStaff'));
+        $teamList = Team::whereNot('id', 1)->pluck('name', 'id')->toArray() ?? [];
+        return view('profile', compact('currentPage', 'isStaff', 'teamList'));
+    }
+
+    // modify self team
+    public function modifyTeamSelf(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $user->team_id = $request['team'];
+        $user->save();
+        return redirect(Route('profile.page'))
+            ->with('message', 'Modify Successfully')
+            ->with('result', 0);
     }
 }

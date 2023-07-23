@@ -34,7 +34,8 @@ Route::group([
         Route::get('/dashboard', 'index')->name('dashboard');
     });
     Route::controller(UserController::class)->group(function () {
-        Route::get('/profile', 'getProfile');
+        Route::get('/profile', 'getProfile')->name('profile.page');
+        Route::post('/team/modify', 'modifyTeamSelf');
     });
     Route::controller(ManageController::class)->group(function () {
         Route::get('/manage', 'index');
