@@ -3,9 +3,9 @@
 @section('body')
 <div class="container">
     <div class="row justify-content-center vh-100 align-content-center">
-        <div class="register-form w-50">
+        <div class="register-form">
             <h3 class="text-center">Login</h3>
-            <div class="register-form m-5 px-5 border-round">
+            <div class="register-form px-5 pt-3 border-round">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" name="email" id="email" aria-describedby="email">
@@ -27,6 +27,13 @@
 
 @section('js')
 <script>
+    $(document).ready(function(){
+        $('#password').keyup(function(e){
+            if(e.keyCode == 13){
+                sendLogin()
+            }
+        })
+    })
     function sendLogin(){
         $.ajax({
             url: "{{ Route('login.auth')}}",
