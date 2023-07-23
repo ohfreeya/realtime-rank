@@ -45,7 +45,9 @@
             success:function(res) {
                 $('.rank-data').css("height", $('.rank-wait-data').height()*res.length)
                 $('.rank-wait-data').remove();
+                console.log(res)
                 res.forEach( (e,i) => {
+                    e.team = e.team.replaceAll(' ','')
                     var elementToMove = $('.'+e.team+'-b');
                     var targetIndex = i;
                     elementToMove.animate(
@@ -55,8 +57,8 @@
                         },
                         1000
                     );
-                    $('.'+e.team+'-s').text(e.score).animate({ opacity: 1 }, 100);
-                    $('.'+e.team+'-t').text(e.team).animate({ opacity: 0.7 }, 100);
+                    $('.'+e.team+'-s').text(e.score).animate({ opacity: 1 });
+                    $('.'+e.team+'-t').text(e.team).animate({ opacity: 0.7 });
                 })
                 $.ajax(getting);
             },
@@ -72,10 +74,11 @@
             },
             success: function(res){
                 res.forEach(element => {
+                    element = element.replaceAll(" ","")
                     $(".rank-data").append(`
-                        <tr class="`+element+`-b">
-                            <td class="`+ element +`-t"></td>
-                            <td class="`+ element +`-s"></td>
+                        <tr class="`+element+`-b row w-100 m-0">
+                            <td class="`+ element +`-t col"></td>
+                            <td class="`+ element +`-s col"></td>
                         </tr>
                     `)
                 });
