@@ -38,7 +38,8 @@ Route::group([
         Route::get('/profile', 'getProfile')->name('profile.page');
         Route::post('/profile/name/modify', 'modifyNickname');
         Route::post('/team/modify', 'modifyTeamSelf');
-        Route::get('/user')->name('user.page');
+        Route::get('/user', 'getUserManage')->name('user.page');
+        Route::post('/user/create', 'createUser')->name('user.create');
     });
     Route::controller(ManageController::class)->group(function () {
         Route::get('/teams', 'index')->name("teams.page");

@@ -15,9 +15,9 @@
                             <form action="/profile/name/modify" method="POST">
                                 @csrf
                                 <label for="email" class="form-label">Email</label>
-                                <input type="input" class="form-control" id="email" disabled value="{{$user->email}}">
+                                <input type="input" class="form-control" id="email" disabled value="{{$user->email}}" autocomplete="off">
                                 <label for="nickname" class="form-label pt-3">NickName</label>
-                                <input type="input" class="form-control" name="nickname" id="nickname" value="{{ $user->name ?? ""}}">
+                                <input type="input" class="form-control" name="nickname" id="nickname" value="{{ $user->name ?? ""}}" autocomplete="off">
                                 <div class="pt-3">
                                     <button type="submit" class="btn btn-primary">modify</button>
                                 </div>

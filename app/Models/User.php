@@ -57,4 +57,9 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function getTeam()
+    {
+        return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
 }

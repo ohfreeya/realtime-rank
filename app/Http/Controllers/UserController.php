@@ -124,4 +124,56 @@ class UserController extends Controller
             ->with('message', 'Modify Successfully')
             ->with('result', 0);
     }
+    // User Manage Page
+    public function getUserManage()
+    {
+        $currentPage = 'user';
+        $isStaff = Auth::user()->isStaff;
+        $teams = Team::all();
+        $users = User::whereNot('id', 1)->orderBy('permission', 'asc')->get();
+        return view('user', compact('currentPage', 'isStaff', 'teams', 'users'));
+    }
+
+    // Create user from User Manage Page
+    public function createUser(Request $request)
+    {
+        $input = $request->all();
+        $validator_data = [
+            "name" => "required",
+            "email" => "required",
+            "password" => "required",
+            "confirm" => "required",
+            "permission" => "required",
+        ];
+        $validator = validator::make($input, $validator_data);
+        if ($validator->fails()) {
+            return back()
+                ->withInput()
+                ->with('result', 1)
+                ->with('message', "All Fields are required when create user."); // field required
+        }
+        $checkEmail = User::where('email', $input['email'])->first();
+        if ($checkEmail) {
+            return back()
+                ->withInput()
+                ->with('result', 1)
+                ->with('message', "Email already registed.");
+        }
+        if ($input['confirm'] !== $input['password']) {
+            return back()
+                ->withInput()
+                ->with('result', 1)
+                ->with('message', "Confirm password is not equal password.");
+        }
+        User::create([
+            "name" => $input['name'],
+            "email" => $input['email'],
+            "password" => Hash::make($input['password']),
+            "team_id" => $input['team'],
+            "permission" => $input['permission']
+        ]);
+        return redirect(Route('user.page'))
+            ->with('result', 0)
+            ->with('message', "Created user successfully");
+    }
 }

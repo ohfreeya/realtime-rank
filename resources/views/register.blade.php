@@ -10,19 +10,19 @@
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Nickname</label>
-                        <input type="input" class="form-control" name="name" id="name" aria-describedby="name">
+                        <input type="input" class="form-control" name="name" id="name" aria-describedby="name" autocomplete="off">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" aria-describedby="email">
+                        <input type="email" class="form-control" name="email" id="email" aria-describedby="email" autocomplete="off">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="password">
+                        <input type="password" class="form-control" name="password" id="password" autocomplete="off">
                     </div>
                     <div class="mb-3">
                         <label for="confirm" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" name="confirm" id="confirm">
+                        <input type="password" class="form-control" name="confirm" id="confirm" autocomplete="off">
                     </div>
                     <div class="text-center">
                         <a href="/login" class="text-decoration-none">back</a>

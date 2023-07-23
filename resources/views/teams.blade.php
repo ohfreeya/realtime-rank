@@ -59,7 +59,7 @@
                             <form action="/team/create" method="post">
                                 @csrf
                                 <label for="team-name" class="form-label">Team Name</label>
-                                <input type="text" id="team-name" class="form-control" name="name">
+                                <input type="text" id="team-name" class="form-control" name="name" autocomplete="off">
                                 <div class="pt-3">
                                     <button type="submit" class="btn btn-primary">create</button>
                                 </div>

@@ -16,10 +16,10 @@
           </li>
           @if($isStaff)
             <li class="nav-item">
-              <a class="nav-link {{ $currentPage == 'teams' ? "active" : '' }}" href="/teams">Teams Manage</a>
+              <a class="nav-link {{ $currentPage == 'teams' ? "active" : '' }}" href="/teams">Teams</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ $currentPage == 'user' ? "active" : '' }}" href="/user">User Manage</a>
+              <a class="nav-link {{ $currentPage == 'user' ? "active" : '' }}" href="/user">User</a>
             </li>
           @endif
           <li class="nav-item float-end">
